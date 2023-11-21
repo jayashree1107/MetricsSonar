@@ -28,8 +28,8 @@ jobs:
     - name: SonarQube Scan
       uses: kitabisa/sonarqube-action@v1.2.0
       with:
-        host: your-sonarqube-host  # Replace with your SonarQube server URL
-        login: your-sonarqube-token  # Replace with your SonarQube server token
+        host:  ${{ secrets.SONARQUBE_HOST }} # Replace with your SonarQube server URL
+        login: ${{ secrets.SONARQUBE_TOKEN }} # Replace with your SonarQube server token
         projectKey: Github-Action-Scan
         options: -X  # Enable full debug logging
 
