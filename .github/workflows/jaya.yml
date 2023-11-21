@@ -1,4 +1,6 @@
-on: 
+name: SonarQube Scan
+
+on:
   push:
     branches:
       - master
@@ -6,20 +8,29 @@ on:
   pull_request:
     types: [opened, synchronize, reopened]
 
-name: SonarQube Scan
-
 jobs:
   sonarqube:
     name: SonarQube Trigger
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checking out
-      uses: actions/checkout@master
+    - name: Checkout repository
+      uses: actions/checkout@v2
       with:
         fetch-depth: 0  # Disabling shallow clone for improved reporting relevance
+
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'adopt'
+        java-version: '11'
+
     - name: SonarQube Scan
       uses: kitabisa/sonarqube-action@v1.2.0
       with:
-        host: ${{ secrets.SONARQUBE_HOST }}
-        login: ${{ secrets.SONARQUBE_TOKEN }}
+        host: your-sonarqube-host  # Replace with your SonarQube server URL
+        login: your-sonarqube-token  # Replace with your SonarQube server token
         projectKey: Github-Action-Scan
+        options: -X  # Enable full debug logging
+
+# Add more steps or modify the existing ones based on your project's needs
