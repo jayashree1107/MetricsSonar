@@ -1,14 +1,13 @@
 on:
-  # Trigger analysis when pushing in master or pull requests, and when creating
-  # a pull request. 
   push:
     branches:
       - master
       - main
   pull_request:
-      types: [opened, synchronize, reopened]
+    types: [opened, synchronize, reopened]
 
 name: SonarQube Scan
+
 jobs:
   sonarqube:
     name: SonarQube Trigger
@@ -17,11 +16,10 @@ jobs:
     - name: Checking out
       uses: actions/checkout@master
       with:
-        # Disabling shallow clone is recommended for improving relevancy of reporting
-        fetch-depth: 0
+        fetch-depth: 0  # Disabling shallow clone for improved reporting relevance
     - name: SonarQube Scan
       uses: kitabisa/sonarqube-action@v1.2.0
       with:
         host: ${{ secrets.SONARQUBE_HOST }}
         login: ${{ secrets.SONARQUBE_TOKEN }}
-        projectKey: 'Github-Action-Scan'
+        projectKey: Github-Action-Scan
